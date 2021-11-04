@@ -1,0 +1,23 @@
+{
+  "name": "orga_buscaminas",
+  "version": "1.0.0",
+  "description": "ORGA_BUSCAMINAS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiwue/ORGA_BUSCAMINAS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tiwue/ORGA_BUSCAMINAS/issues"
+  },
+  "homepage": "https://github.com/Tiwue/ORGA_BUSCAMINAS#readme",
+  "dependencies": {
+    "serialport": "^9.2.5"
+  }
+}
