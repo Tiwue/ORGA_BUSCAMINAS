@@ -7,11 +7,11 @@
   } 
   body {
   font-family: 'Helvetica', Arial, sans-serif;
-  background: black;
+  background: #1B1B1B;
   color: #E9F0EF;
 }
   .container {
-    background-color: gray;
+    background-color: darkgray;
     width: 360px;
     margin-bottom: 25px;
     border: 5px solid;
@@ -20,28 +20,7 @@
     border-bottom-color: darkgray;
     border-right-color: darkgray;
   }
-  
-  
-  .puntos,
-  .tiempo {
-    font-size: 1.5em;
-    color: #d41516;
-    background-color: #3a1d1b;
-    padding: 0.2em;
-    border: 1px solid;
-    border-top-color: #808080;
-    border-bottom-color: #ffffff;
-    border-left-color: #808080;
-    border-right-color: #ffffff;
-  }
 
-  
-  .level {
-    font-size: 0.6em;
-    padding: 0.5em 0;
-    margin: 0;
-  }
-  
   
   .tablero {
     display: grid;
@@ -52,12 +31,22 @@
     
     
   }
+
+  .modal{
+    background-color: red;
+    color: white;
+    width: 360px;
+    height: 150px;
+    align-items: center;
+    border-radius: 30px;
+    
+  }
   
   li {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #c0c0c0;
+    background-color: darkgray;
     list-style: none;
     font-family: "VT323";
     font-size: 1.5em;
@@ -68,22 +57,10 @@
     border: 3px solid;
     border-top-color: white;
     border-left-color: white;
-    border-bottom-color: #808080;
-    border-right-color: #808080;
+    border-bottom-color: black;
+    border-right-color: black;
   }
   
-  .numero1,
-  .numero2 {
-    font-weight: bold;
-  }
-  
-  .numero1 {
-    color: #070bb4;
-  }
-  
-  .numero2 {
-    color: #196f19;
-  }
   
   .fa-bomb,
   .fa-flag,
@@ -101,16 +78,6 @@
   }
 
   
-  @keyframes pulso {
-    from,
-    to {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.3);
-    }
-  }
-  
   /* Media Querie */
   
   @media (min-width: 465px) {
@@ -123,14 +90,10 @@
       margin: 0.6em;
       font-size: 1.4em;
     }
+
     li {
       font-size: 2.2em;
     }
-    .smile img {
-      width: 65px;
-      height: 65px;
-    }
-  }
 
     select {
         display: block;
@@ -161,14 +124,24 @@
 .button2:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
 }
-
+  }
 </style>
+
 <div>
 <p style="text-align:center; font-size:400%;"> Buscaminas  </p>
 </div>
 <div align="center" >
-<img src="logo.png" width="250"
+<img src="https://c.tenor.com/IoM8xkl2cNEAAAAi/bomb-bomba.gif" width="250"
 height="250" >
+</div>
+<div align="center" id="modal" style="display: none;">
+<div class="modal" style="text-align: center; font-family: Arial, Helvetica, sans-serif;" >
+  <br>
+  <br>
+  <strong style="font-size: 50;">GAME OVER</strong> 
+  <br>
+  Gracias por jugar!
+</div>
 </div>
 <div align="center" style="padding-top: 100px;">
 <div class="container" align="center" style="margin-bottom: 100px;">
@@ -176,8 +149,8 @@ height="250" >
   <div class="puntaje" align="center">
       <b>Seleccionar modo:</b><br>
       <select id="modo">
-        <option value="0">Colocar bomba</option>
-        <option value="1">Realizar tiro</option>
+        <option value="0">Configurar</option>
+        <option value="1">Jugar</option>
       </select>
   </div>
 
@@ -204,13 +177,12 @@ height="250" >
     <li onclick="select('1011')" id = "1011" class="celda"></li>
     <li onclick="select('1111')" id = "1111" class="celda"></li>
     
-    
   </ul>
     <button class="button button2"onclick="confirmar()" align="center" >Enviar</button>
 </div>
 </div>
 <div>
-  <hr>
+
   </div>
 
 <script>
@@ -225,7 +197,7 @@ function select(pos) {
 }
 
 function confirmar() {
-    opcion  =""
+    
     document.getElementById(casilla).className = "celda"
     data = document.getElementById("modo").value + casilla
 
@@ -234,20 +206,21 @@ function confirmar() {
 	    method: 'POST',
 	    body: JSON.stringify({"data": data})
     }).then(res => res.json()).then(function(dataR) { 
-	    if(document.getElementsById("modo").value == 1) {
-		    console.log(dataR.resultado == '11111');
+	    if(document.getElementById("modo").value == 1) {
+		    
 		    if(dataR.resultado == '11111'){
-			    //JUEGO CONTINUA
+			    
 			    document.getElementById(casilla).innerHTML = "&#9989;";
 		    }else{
-			    //JUEGO PERDIDO
+			   
 			    document.getElementById(casilla).innerHTML = "&#x1F4A5";
+          document.getElementById("modal").style.display="block"
 		    }
 	    } else {
-		    alert("Bomba colocada");
+		    alert("Bomba colocada correctamente");
 	    }
 	    casilla  = ""
 	    return "";
     });
-}
-</script>
+  }
+  </script>

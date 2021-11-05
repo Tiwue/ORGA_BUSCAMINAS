@@ -2,15 +2,14 @@ const SerialPort = require('serialport')
 const port = new SerialPort('COM3', {
   baudRate: 9600
 })
-var dataGlobal = null;
 
-//Errores de apertura, escritura o lectura
+
 port.on('error', function(err) {
   console.log('Error: ', err.message)
 });
 
 
-//servidor
+// levantamos el servidor
 const Hapi = require('@hapi/hapi');
 
 const init = async () => {
@@ -33,7 +32,7 @@ const init = async () => {
 	    if (err) {
 	      return console.log('Error on write: ', err.message)
 	    }
-	      console.log('Mensaje enviado')
+	      console.log('Datos enviados')
 	    });
 	    const resPromise = new Promise((resolve,reject) => {
 		//Lectura de datos
